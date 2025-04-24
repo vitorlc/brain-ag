@@ -28,6 +28,6 @@ export class CreateFarmDto {
   vegetationArea: number;
 
   @IsString()
-  @Exists(Farmer, { message: 'farmer not found' })
+  @Exists(Farmer, 'id', { message: 'farmer not found' })
   farmerId: string
 }
