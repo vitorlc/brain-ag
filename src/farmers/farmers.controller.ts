@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { FarmersService } from './farmers.service';
 import { CreateFarmerDto } from './dto/create-farmer.dto';
 import { UpdateFarmerDto } from './dto/update-farmer.dto';
@@ -16,7 +26,7 @@ export class FarmersController {
     try {
       const result = await this.farmersService.create(createFarmerDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -38,7 +48,7 @@ export class FarmersController {
     try {
       const result = await this.farmersService.findAll();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -59,7 +69,7 @@ export class FarmersController {
     try {
       const result = await this.farmersService.findOne(id);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -77,11 +87,14 @@ export class FarmersController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateFarmerDto: UpdateFarmerDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateFarmerDto: UpdateFarmerDto,
+  ) {
     try {
       const result = await this.farmersService.update(id, updateFarmerDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -104,7 +117,7 @@ export class FarmersController {
     try {
       const result = await this.farmersService.remove(id);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.message;
     } catch (error) {

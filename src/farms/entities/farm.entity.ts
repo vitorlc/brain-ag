@@ -1,4 +1,10 @@
-import { Entity, Property, ManyToOne, OneToMany, Collection } from '@mikro-orm/core';
+import {
+  Entity,
+  Property,
+  ManyToOne,
+  OneToMany,
+  Collection,
+} from '@mikro-orm/core';
 import { CustomBaseEntity } from 'src/utils/custom-base-entity';
 import { Farmer } from 'src/farmers/entities/farmer.entity';
 import { Crop } from 'src/cultivation/crops/entities/crop.entity';
@@ -30,7 +36,7 @@ export class Farm extends CustomBaseEntity {
   @ManyToOne(() => Farmer)
   farmer: Farmer;
 
-  @OneToMany(() => Crop, crop => crop.farm)
+  @OneToMany(() => Crop, (crop) => crop.farm)
   crops = new Collection<Crop>(this);
 
   constructor({
@@ -51,7 +57,7 @@ export class Farm extends CustomBaseEntity {
     farmer: Farmer;
   }) {
     super();
-  
+
     this.name = name;
     this.city = city;
     this.state = state;
@@ -62,9 +68,8 @@ export class Farm extends CustomBaseEntity {
   }
 
   update(data: UpdateFarmDto) {
-    Object.assign(this, data)
+    Object.assign(this, data);
   }
-
 
   addCrop(data: CreateCropDto, harvest: Harvest) {
     const crop = new Crop(data.name, this, harvest);
@@ -73,6 +78,6 @@ export class Farm extends CustomBaseEntity {
       this.crops.add(crop);
       crop.farm = this;
     }
-    return crop
+    return crop;
   }
 }

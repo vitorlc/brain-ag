@@ -10,7 +10,7 @@ async function bootstrap() {
 
   app.useLogger(app.get(Logger));
   app.useGlobalPipes(new ValidationPipe());
-  useContainer(app.select(AppModule), { 
+  useContainer(app.select(AppModule), {
     fallbackOnErrors: true,
   });
 

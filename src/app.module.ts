@@ -33,11 +33,7 @@ import { TerminusModule } from '@nestjs/terminus';
     CultivationModule,
     DashboardModule,
   ],
-  controllers: [
-    AppController
-  ],
-  providers: [
-    ExistsConstraint
-  ]
+  controllers: [AppController],
+  providers: [ExistsConstraint],
 })
 export class AppModule {}

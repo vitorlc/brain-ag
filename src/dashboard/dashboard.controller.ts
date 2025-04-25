@@ -14,7 +14,7 @@ export class DashboardController {
     try {
       const result = await this.dashboardService.getSummary();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -35,7 +35,7 @@ export class DashboardController {
     try {
       const result = await this.dashboardService.getFarmsByState();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -56,7 +56,7 @@ export class DashboardController {
     try {
       const result = await this.dashboardService.getCropsByType();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -77,7 +77,7 @@ export class DashboardController {
     try {
       const result = await this.dashboardService.getLandUse();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {

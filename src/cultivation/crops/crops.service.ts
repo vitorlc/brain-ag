@@ -11,13 +11,14 @@ export class CropsService {
   constructor(private readonly em: EntityManager) {}
 
   async create(dto: CreateCropDto) {
-    const farm = await this.em.findOne(Farm, {id: dto.farmId});
+    const farm = await this.em.findOne(Farm, { id: dto.farmId });
     if (!farm) return Result.error('Farm not found', HttpStatus.NOT_FOUND);
-    
-    const harvestEntity = await this.em.findOne(Harvest, { name: dto.harvest });
-    if (!harvestEntity) return Result.error('Harvest not found', HttpStatus.NOT_FOUND)
 
-    const crop = farm.addCrop(dto, harvestEntity)
+    const harvestEntity = await this.em.findOne(Harvest, { name: dto.harvest });
+    if (!harvestEntity)
+      return Result.error('Harvest not found', HttpStatus.NOT_FOUND);
+
+    const crop = farm.addCrop(dto, harvestEntity);
     await this.em.persistAndFlush(crop);
     return Result.success(crop);
   }
@@ -25,7 +26,7 @@ export class CropsService {
   async remove(id: string) {
     const crop = await this.em.findOne(Crop, { id });
 
-    if (!crop) return Result.error('Crop not found', HttpStatus.NOT_FOUND)
+    if (!crop) return Result.error('Crop not found', HttpStatus.NOT_FOUND);
 
     await this.em.removeAndFlush(crop);
     return Result.success({}, 'Crop deleted successfully');

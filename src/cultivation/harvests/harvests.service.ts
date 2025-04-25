@@ -1,4 +1,9 @@
-import { HttpCode, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Harvest } from './entities/harvest.entity';
 import { CreateHarvestDto } from './dto/create-harvest.dto';
@@ -16,7 +21,8 @@ export class HarvestsService {
 
   async remove(name: string) {
     const harvest = await this.em.findOne(Harvest, { name });
-    if (!harvest) return Result.error('Harvest not found', HttpStatus.NOT_FOUND);
+    if (!harvest)
+      return Result.error('Harvest not found', HttpStatus.NOT_FOUND);
     await this.em.removeAndFlush(harvest);
     return Result.success({});
   }

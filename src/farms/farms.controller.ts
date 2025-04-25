@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { FarmsService } from './farms.service';
 import { CreateFarmDto } from './dto/create-farm.dto';
 import { UpdateFarmDto } from './dto/update-farm.dto';
@@ -16,7 +26,7 @@ export class FarmsController {
     try {
       const result = await this.farmsService.create(createFarmDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -38,7 +48,7 @@ export class FarmsController {
     try {
       const result = await this.farmsService.findAll();
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -59,7 +69,7 @@ export class FarmsController {
     try {
       const result = await this.farmsService.findOne(id);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -81,7 +91,7 @@ export class FarmsController {
     try {
       const result = await this.farmsService.update(id, updateFarmDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -104,7 +114,7 @@ export class FarmsController {
     try {
       const result = await this.farmsService.remove(id);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.message;
     } catch (error) {

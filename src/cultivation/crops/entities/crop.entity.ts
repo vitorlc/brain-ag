@@ -1,6 +1,6 @@
 import { Entity, Property, ManyToOne } from '@mikro-orm/core';
 import { CustomBaseEntity } from 'src/utils/custom-base-entity';
-import { Farm } from 'src/farms/entities/farm.entity';  
+import { Farm } from 'src/farms/entities/farm.entity';
 import { Harvest } from 'src/cultivation/harvests/entities/harvest.entity';
 
 @Entity()

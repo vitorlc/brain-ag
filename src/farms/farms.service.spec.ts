@@ -46,7 +46,9 @@ describe('FarmService', () => {
       const result = await farmService.create(dto);
 
       expect(result.success).toBe(false);
-      expect(result.message).toBe('The sum of agriculturalArea and vegetationArea must not exceed totalArea');
+      expect(result.message).toBe(
+        'The sum of agriculturalArea and vegetationArea must not exceed totalArea',
+      );
       expect(result.statusCode).toBe(HttpStatus.BAD_REQUEST);
     });
 
@@ -61,7 +63,10 @@ describe('FarmService', () => {
         farmerId: '1',
       };
 
-      const mockFarmer = new Farmer({ name: 'Test Farmer', cpfCnpj: '12345678900' });
+      const mockFarmer = new Farmer({
+        name: 'Test Farmer',
+        cpfCnpj: '12345678900',
+      });
 
       mockEm.getReference.mockReturnValue(mockFarmer);
 
@@ -109,7 +114,9 @@ describe('FarmService', () => {
       const result = await farmService.update(id, dto);
 
       expect(result.success).toBe(false);
-      expect(result.message).toBe('The sum of agriculturalArea and vegetationArea must not exceed totalArea');
+      expect(result.message).toBe(
+        'The sum of agriculturalArea and vegetationArea must not exceed totalArea',
+      );
       expect(result.statusCode).toBe(HttpStatus.BAD_REQUEST);
     });
 
@@ -136,7 +143,7 @@ describe('FarmService', () => {
 
       const result = await farmService.update(id, dto);
 
-      expect(result.success).toBe(true); 
+      expect(result.success).toBe(true);
       expect(result.data).toBe(mockFarm);
       expect(mockFarm.update).toHaveBeenCalledWith(dto);
       expect(mockEm.flush).toHaveBeenCalled();

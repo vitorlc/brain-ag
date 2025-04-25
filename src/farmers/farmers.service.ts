@@ -16,14 +16,17 @@ export class FarmersService {
   }
 
   async findAll() {
-    const result = await this.em.find(Farmer, {})
+    const result = await this.em.find(Farmer, {});
     return Result.success(result);
   }
 
   async findOne(id: string) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND)
+      return Result.error(
+        `Farmer with id ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return Result.success(farmer);
   }
@@ -31,18 +34,24 @@ export class FarmersService {
   async update(id: string, updateFarmerDto: UpdateFarmerDto) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND);
+      return Result.error(
+        `Farmer with id ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     farmer.update(updateFarmerDto);
-    await this.em.persistAndFlush(farmer); 
+    await this.em.persistAndFlush(farmer);
     return Result.success(farmer);
   }
 
   async remove(id: string) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND);
+      return Result.error(
+        `Farmer with id ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     await this.em.removeAndFlush(farmer);

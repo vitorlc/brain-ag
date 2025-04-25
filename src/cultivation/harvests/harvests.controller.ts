@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CreateHarvestDto } from './dto/create-harvest.dto';
 import { HarvestsService } from './harvests.service';
 import { Logger } from 'nestjs-pino';
@@ -15,7 +23,7 @@ export class HarvestsController {
     try {
       const result = await this.harvestService.create(createHarvestDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -37,10 +45,9 @@ export class HarvestsController {
     try {
       const result = await this.harvestService.remove(name);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.message;
-
     } catch (error) {
       this.logger.error('Error removing the harvest', {
         name,

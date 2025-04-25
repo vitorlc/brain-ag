@@ -1,4 +1,8 @@
-import { ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments } from 'class-validator';
+import {
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
+} from 'class-validator';
 import { EntityManager } from '@mikro-orm/postgresql';
 
 @ValidatorConstraint({ async: true })

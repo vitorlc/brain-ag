@@ -11,16 +11,10 @@ export class Farmer extends CustomBaseEntity {
   @Property()
   cpfCnpj: string;
 
-  @OneToMany(() => Farm, farm => farm.farmer)
+  @OneToMany(() => Farm, (farm) => farm.farmer)
   farms = new Collection<Farm>(this);
 
-  constructor({
-    name,
-    cpfCnpj,
-  }: {
-    name: string;
-    cpfCnpj: string;
-  }) {
+  constructor({ name, cpfCnpj }: { name: string; cpfCnpj: string }) {
     super();
 
     this.name = name;
@@ -28,6 +22,6 @@ export class Farmer extends CustomBaseEntity {
   }
 
   update(data: UpdateFarmerDto) {
-    Object.assign(this, data)
+    Object.assign(this, data);
   }
 }

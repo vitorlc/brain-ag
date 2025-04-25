@@ -20,44 +20,48 @@ interface LandUse {
 
 @Injectable()
 export class DashboardService {
-    constructor(private readonly em: EntityManager) {}
+  constructor(private readonly em: EntityManager) {}
 
-    async getSummary() {
-        const totalFarms = await this.em.count(Farm);
-        const [{ total }] = await this.em.execute<{ total: string }[]>(
-          'SELECT SUM(total_area) as total FROM farm'
-        );
-    
-        return Result.success({
-          totalFarms,
-          totalHectares: Number(total || 0),
-        })
-    }
+  async getSummary() {
+    const totalFarms = await this.em.count(Farm);
+    const [{ total }] = await this.em.execute<{ total: string }[]>(
+      'SELECT SUM(total_area) as total FROM farm',
+    );
 
-    async getFarmsByState() {
-        const result = await this.em.execute<StateCount[]>(
-          'SELECT state, COUNT(id) as count FROM farm GROUP BY state'
-        );
-    
-        return Result.success(result.map(r => ({ state: r.state, count: Number(r.count) })));
-    }
+    return Result.success({
+      totalFarms,
+      totalHectares: Number(total || 0),
+    });
+  }
 
-    async getCropsByType() {
-        const result = await this.em.execute<CropCount[]>(
-          'SELECT name, COUNT(id) as count FROM crop GROUP BY name'
-        );
-    
-        return Result.success(result.map(r => ({ crop: r.name, count: Number(r.count) })));
-    }
+  async getFarmsByState() {
+    const result = await this.em.execute<StateCount[]>(
+      'SELECT state, COUNT(id) as count FROM farm GROUP BY state',
+    );
 
-    async getLandUse() {
-        const [result] = await this.em.execute<LandUse[]>(
-          'SELECT SUM(agricultural_area) as agricultural, SUM(vegetation_area) as vegetation FROM farm'
-        );
-    
-        return Result.success({
-          agriculturalArea: Number(result?.agricultural || 0),
-          vegetationArea: Number(result?.vegetation || 0),
-        });
-    }
+    return Result.success(
+      result.map((r) => ({ state: r.state, count: Number(r.count) })),
+    );
+  }
+
+  async getCropsByType() {
+    const result = await this.em.execute<CropCount[]>(
+      'SELECT name, COUNT(id) as count FROM crop GROUP BY name',
+    );
+
+    return Result.success(
+      result.map((r) => ({ crop: r.name, count: Number(r.count) })),
+    );
+  }
+
+  async getLandUse() {
+    const [result] = await this.em.execute<LandUse[]>(
+      'SELECT SUM(agricultural_area) as agricultural, SUM(vegetation_area) as vegetation FROM farm',
+    );
+
+    return Result.success({
+      agriculturalArea: Number(result?.agricultural || 0),
+      vegetationArea: Number(result?.vegetation || 0),
+    });
+  }
 }

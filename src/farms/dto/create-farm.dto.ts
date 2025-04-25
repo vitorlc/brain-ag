@@ -29,5 +29,5 @@ export class CreateFarmDto {
 
   @IsString()
   @Exists(Farmer, 'id', { message: 'farmer not found' })
-  farmerId: string
+  farmerId: string;
 }

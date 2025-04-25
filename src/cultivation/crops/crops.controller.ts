@@ -1,18 +1,29 @@
-import { Controller, Post, Body, Delete, Param, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Delete,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CropsService } from './crops.service';
 import { Logger } from 'nestjs-pino';
 import { CreateCropDto } from './dto/create-crop.dto';
 
 @Controller('crops')
 export class CropsController {
-  constructor(private readonly cropsService: CropsService, private readonly logger: Logger) {}
+  constructor(
+    private readonly cropsService: CropsService,
+    private readonly logger: Logger,
+  ) {}
 
   @Post()
   async create(@Body() createCropDto: CreateCropDto) {
     try {
       const result = await this.cropsService.create(createCropDto);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.data;
     } catch (error) {
@@ -34,7 +45,7 @@ export class CropsController {
     try {
       const result = await this.cropsService.remove(id);
       if (!result.success) {
-        throw new HttpException(result.message, result.statusCode)
+        throw new HttpException(result.message, result.statusCode);
       }
       return result.message;
     } catch (error) {
