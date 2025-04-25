@@ -25,22 +25,22 @@ git clone https://github.com/vitorlc/brain-ag.git
 cd brain-ag
 ```
 
-### Opção 1: Execução via Node
-
-2. Instale as dependências:
-```bash
-npm install
-```
-
-3. Configure as variáveis de ambiente:
+2. Configure as variáveis de ambiente:
 ```bash
 cp .env.example .env
 ```
 Edite o arquivo `.env` com suas credenciais do banco de dados e outras configurações.
 
-4. Execute as migrações do banco de dados:
+3. Execute as migrações do banco de dados:
 ```bash
 npm run migration:up
+```
+
+### Opção 1: Execução via Node
+
+4. Instale as dependências:
+```bash
+npm install
 ```
 
 5. Inicie o servidor de desenvolvimento:
@@ -50,7 +50,7 @@ npm run start:dev
 
 ### Opção 2: Execução via Docker compose
 
-2. Construa e inicie os containers com o Docker Compose:
+4. Construa e inicie os containers com o Docker Compose:
 ```bash
 docker-compose up --build
 ```
