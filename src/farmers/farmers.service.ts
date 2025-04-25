@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateFarmerDto } from './dto/create-farmer.dto';
 import { UpdateFarmerDto } from './dto/update-farmer.dto';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Farmer } from './entities/farmer.entity';
+import { Result } from 'src/utils/result';
 
 @Injectable()
 export class FarmersService {
@@ -11,39 +12,40 @@ export class FarmersService {
   async create(dto: CreateFarmerDto) {
     const farmer = new Farmer(dto);
     await this.em.persistAndFlush(farmer);
-    return farmer;
+    return Result.success(farmer);
   }
 
   async findAll() {
-    return await this.em.find(Farmer, {});
+    const result = await this.em.find(Farmer, {})
+    return Result.success(result);
   }
 
   async findOne(id: string) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      throw new NotFoundException(`Farmer with id ${id} not found`);
+      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND)
     }
-    return farmer;
+    return Result.success(farmer);
   }
 
   async update(id: string, updateFarmerDto: UpdateFarmerDto) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      throw new NotFoundException(`Farmer with id ${id} not found`);
+      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
     farmer.update(updateFarmerDto);
     await this.em.persistAndFlush(farmer); 
-    return farmer;
+    return Result.success(farmer);
   }
 
   async remove(id: string) {
     const farmer = await this.em.findOne(Farmer, { id });
     if (!farmer) {
-      throw new NotFoundException(`Farmer with id ${id} not found`);
+      return Result.error(`Farmer with id ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
     await this.em.removeAndFlush(farmer);
-    return { message: `Farmer with id ${id} removed successfully` };
+    return Result.success({}, `Farmer with id ${id} removed successfully`);
   }
 }
