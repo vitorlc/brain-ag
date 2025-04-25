@@ -18,9 +18,7 @@ export class FarmsService {
       );
     }
 
-    const farm = new Farm();
-    farm.farmer = this.em.getReference(Farmer, dto.farmerId);
-    Object.assign(farm, dto);
+    const farm = new Farm({...dto, farmer: this.em.getReference(Farmer, dto.farmerId)});
     await this.em.persistAndFlush(farm);
     return farm;
   }
@@ -50,7 +48,7 @@ export class FarmsService {
       );
     }
 
-    Object.assign(farm, dto);
+    farm.update(dto);
     await this.em.flush();
     return farm;
   }

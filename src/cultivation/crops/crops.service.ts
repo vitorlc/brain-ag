@@ -10,11 +10,13 @@ export class CropsService {
   constructor(private readonly em: EntityManager) {}
 
   async create(dto: CreateCropDto) {
-    const farm = this.em.getReference(Farm, dto.farmId);
+    const farm = await this.em.findOne(Farm, {id: dto.farmId});
+    if (!farm) throw new NotFoundException('Farm not found');
+    
     const harvestEntity = await this.em.findOne(Harvest, { name: dto.harvest });
     if (!harvestEntity) throw new NotFoundException('Harvest not found');
-    const harvest = this.em.getReference(Harvest, harvestEntity.id);
-    const crop = new Crop(dto.name, farm, harvest);
+
+    const crop = farm.addCrop(dto, harvestEntity)
     await this.em.persistAndFlush(crop);
     return crop;
   }

@@ -9,8 +9,7 @@ export class FarmersService {
   constructor(private readonly em: EntityManager) {}
 
   async create(dto: CreateFarmerDto) {
-    const farmer = new Farmer();
-    Object.assign(farmer, dto);
+    const farmer = new Farmer(dto);
     await this.em.persistAndFlush(farmer);
     return farmer;
   }
@@ -33,7 +32,7 @@ export class FarmersService {
       throw new NotFoundException(`Farmer with id ${id} not found`);
     }
 
-    Object.assign(farmer, updateFarmerDto);
+    farmer.update(updateFarmerDto);
     await this.em.persistAndFlush(farmer); 
     return farmer;
   }
