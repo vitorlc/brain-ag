@@ -26,11 +26,11 @@ export class FarmsService {
   }
 
   findAll() {
-    return this.em.find(Farm, {});
+    return this.em.find(Farm, {}, { populate: ['crops', 'crops.harvest']});
   }
 
   async findOne(id: string) {
-    const farm = await this.em.findOne(Farm, { id });
+    const farm = await this.em.findOne(Farm, { id }, { populate: ['crops']});
     if (!farm) throw new NotFoundException('Farm not found');
     return farm;
   }
