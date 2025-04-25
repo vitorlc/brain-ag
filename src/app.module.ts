@@ -7,6 +7,8 @@ import { ExistsConstraint } from './validators/existsConstraint.validator';
 import { CultivationModule } from './cultivation/cultivation.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LoggerModule } from 'nestjs-pino';
+import { AppController } from './app.controller';
+import { TerminusModule } from '@nestjs/terminus';
 
 @Module({
   imports: [
@@ -24,11 +26,15 @@ import { LoggerModule } from 'nestjs-pino';
         },
       },
     }),
+    TerminusModule,
     // Domain
     FarmersModule,
     FarmsModule,
     CultivationModule,
     DashboardModule,
+  ],
+  controllers: [
+    AppController
   ],
   providers: [
     ExistsConstraint
