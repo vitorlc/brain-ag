@@ -87,3 +87,6 @@ src/
 └── utils/             # Utilitários compartilhados
 ```
 
+## Modelo de Entidade Relacionamento
+
+![Modelo de Entidade Relacionamento](MER.png)
