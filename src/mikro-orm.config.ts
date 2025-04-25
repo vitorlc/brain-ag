@@ -6,7 +6,7 @@ import { Farm } from './farms/entities/farm.entity';
 import { Harvest } from './cultivation/harvests/entities/harvest.entity';
 import { Crop } from './cultivation/crops/entities/crop.entity';
 
-loadEnv(); 
+loadEnv();
 
 const config: MikroOrmModuleOptions = {
   entities: [Farmer, Farm, Harvest, Crop],
@@ -20,7 +20,8 @@ const config: MikroOrmModuleOptions = {
   forceEntityConstructor: true,
   strict: false,
   migrations: {
-    path: 'src/migrations',
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
   },
 };
 
