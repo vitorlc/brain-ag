@@ -5,6 +5,7 @@ import { FarmsModule } from './farms/farms.module';
 import config from './mikro-orm.config';
 import { ExistsConstraint } from './validators/existsConstraint.validator';
 import { CultivationModule } from './cultivation/cultivation.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CultivationModule } from './cultivation/cultivation.module';
     FarmersModule,
     FarmsModule,
     CultivationModule,
+    DashboardModule,
   ],
   providers: [
     ExistsConstraint
